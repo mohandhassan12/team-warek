@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل النقدية</title>
+    <link rel="shortcut icon" href="logo5.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #4b0082;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #6a1b9a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .cash-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select {
+            padding: 10px;
+            border: 2px solid #4b0082;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #4b0082;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button onclick="location.href='cash-report.html'">عرض كاش الفرع</button>
+    </div>
+
+    <div class="container">
+        <h1>تسجيل الحركات النقدية</h1>
+        <form class="cash-form" onsubmit="saveCashEntry(event)">
+            <div class="form-group">
+                <label>BSS:</label>
+                <input type="number" id="bss" required>
+            </div>
+            
+            <div class="form-group">
+                <label>كاش مضاف لـ We Pay:</label>
+                <input type="number" id="wePayAdded" required>
+            </div>
+
+            <div class="form-group">
+                <label>كاش مسحوب من We Pay:</label>
+                <input type="number" id="wePayWithdrawn" required>
+            </div>
+
+            <div class="form-group">
+                <label>مسحوبات Visa:</label>
+                <input type="number" id="visaWithdrawn" required>
+            </div>
+
+            <div class="form-group">
+                <label>Refund:</label>
+                <input type="number" id="refund" required>
+            </div>
+
+            <div class="form-group">
+                <label>مسحوبات أخرى:</label>
+                <input type="number" id="otherWithdrawn" required>
+            </div>
+
+            <div class="form-group">
+                <label>إجمالي الكاش:</label>
+                <input type="number" id="totalCash" readonly>
+            </div>
+
+            <button type="submit">حفظ البيانات</button>
+        </form>
+    </div>
+
+    <script>
+        // حساب الإجمالي التلقائي
+        function calculateTotal() {
+            const inputs = [
+                'bss', 'wePayAdded', 'wePayWithdrawn',
+                'visaWithdrawn', 'refund', 'otherWithdrawn'
+            ];
+
+            const values = inputs.map(id => 
+                parseFloat(document.getElementById(id).value) || 0
+            );
+
+            const total = values[0] + values[1] - values[2] - 
+                        values[3] - values[4] - values[5];
+            
+            document.getElementById('totalCash').value = total.toFixed(2);
+        }
+
+        // تفعيل الحساب التلقائي
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        // حفظ البيانات
+        function saveCashEntry(event) {
+            event.preventDefault();
+            
+            const cashEntry = {
+                timestamp: new Date().toISOString(), // إضافة هذا الحقل
+                date: new Date().toLocaleString('ar-EG'),
+                bss: document.getElementById('bss').value,
+                wePayAdded: document.getElementById('wePayAdded').value,
+                wePayWithdrawn: document.getElementById('wePayWithdrawn').value,
+                visaWithdrawn: document.getElementById('visaWithdrawn').value,
+                refund: document.getElementById('refund').value,
+                otherWithdrawn: document.getElementById('otherWithdrawn').value,
+                total: document.getElementById('totalCash').value,
+                user: localStorage.getItem('currentUser') || 'مستخدم غير معروف'
+            };
+
+            const entries = JSON.parse(localStorage.getItem('cashEntries') || '[]');
+            entries.push(cashEntry);
+            localStorage.setItem('cashEntries', JSON.stringify(entries));
+
+            alert('تم الحفظ بنجاح!');
+            event.target.reset();
+            calculateTotal();
+        }
+    </script>
+</body>
+</html>

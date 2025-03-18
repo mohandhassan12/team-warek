@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد السيلز</title>
+    <link rel="shortcut icon" href="logo5.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #4b0082;
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #4b0082;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4b0082;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .admin-only {
+            display: none;
+        }
+        button {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #4b0082;
+        }
+    </style>
+</head>
+<body>
+    <h1>داشبورد السيلز</h1>
+    <div class="nav-buttons">
+        <button onclick="location.href='home.html'">العودة للتسجيل</button>
+    </div>
+    
+    <button onclick="exportToExcel()">تحميل تقرير Excel</button>
+    
+    <h2>الخطوط اليومية</h2>
+    <table id="daily-lines-table">
+        <thead>
+            <tr>
+                <th>التاريخ</th>
+                <th>الخطوط</th>
+                <th>We Pay</th>
+                <th>ADSL</th>
+                <th>Fixed</th>
+                <th>Data</th>
+                <th>المستخدم</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button class="admin-only" onclick="clearOldEntries()">مسح البيانات الأقدم من 7 أيام</button>
+
+    <h2>مقارنة الإنجاز</h2>
+    <table id="comparison-table">
+        <thead>
+            <tr>
+                <th>المستخدم</th>
+                <th>المطلوب تحقيقه</th>
+                <th>ما تم تحقيقه</th>
+                <th>We Pay</th>
+                <th>ADSL</th>
+                <th>Fixed</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button class="admin-only" onclick="clearComparison()">مسح جدول المقارنة</button>
+
+    <script>
+        function exportToExcel() {
+            const salesData = JSON.parse(localStorage.getItem('salesData') || '[]');
+            const currentUser = localStorage.getItem('currentUser');
+            const isAdmin = currentUser === 'fr.mohannd.hassen';
+            
+            const filteredData = isAdmin ? salesData : salesData.filter(entry => entry.user === currentUser);
+            
+            const wsData = filteredData.map(entry => ({
+                "التاريخ": entry.date,
+                "الخطوط": entry.lines,
+                "الباقات": entry.packages?.join(', ') || 'لا توجد بيانات',
+                "We Pay": entry.wePay || 0,
+                "Data": entry.data || 0,
+                "ADSL": entry.adsl || 0,
+                "Fixed": entry.fixed || 0,
+                "المستخدم": entry.user
+            }));
+            
+            const ws = XLSX.utils.json_to_sheet(wsData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "المبيعات");
+            
+            const fileName = `تقرير_${currentUser}_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const isAdmin = localStorage.getItem('currentUser') === 'fr.mohannd.hassen';
+            const currentUser = localStorage.getItem('currentUser') || 'مستخدم غير معروف';
+            
+            if (isAdmin) {
+                document.querySelectorAll('.admin-only').forEach(btn => {
+                    btn.style.display = 'inline-block';
+                });
+            }
+
+            // عرض البيانات اليومية
+            const salesData = JSON.parse(localStorage.getItem('salesData') || '[]');
+            const dailyLinesBody = document.querySelector("#daily-lines-table tbody");
+            
+            dailyLinesBody.innerHTML = salesData
+                .filter(entry => isAdmin || entry.user === currentUser)
+                .map(entry => `
+                    <tr>
+                        <td>${entry.date}</td>
+                        <td>${entry.lines}</td>
+                        <td>${entry.wePay || 0}</td>
+                        <td>${entry.adsl || 0}</td>
+                        <td>${entry.fixed || 0}</td>
+                        <td>${entry.data || 0}</td>
+                        <td>${entry.user}</td>
+                    </tr>
+                `).join('');
+
+            // تحديث جدول المقارنة
+            const comparisonBody = document.querySelector("#comparison-table tbody");
+            comparisonBody.innerHTML = '';
+            
+            const users = isAdmin 
+                ? [...new Set(salesData.map(entry => entry.user))] 
+                : [currentUser];
+
+            users.forEach(user => {
+                const userData = salesData.filter(entry => entry.user === user);
+                
+                const totals = userData.reduce((acc, entry) => ({
+                    lines: acc.lines + parseInt(entry.lines),
+                    wePay: acc.wePay + parseInt(entry.wePay || 0),
+                    adsl: acc.adsl + parseInt(entry.adsl || 0),
+                    fixed: acc.fixed + parseInt(entry.fixed || 0),
+                    data: acc.data + parseInt(entry.data || 0)
+                }), {lines:0, wePay:0, adsl:0, fixed:0, data:0});
+
+                comparisonBody.innerHTML += `
+                    <tr>
+                        <td>${user}</td>
+                        <td>${isAdmin ? '1000' : '500'}</td>
+                        <td>${totals.lines}</td>
+                        <td>${totals.wePay}</td>
+                        <td>${totals.adsl}</td>
+                        <td>${totals.fixed}</td>
+                        <td>${totals.data}</td>
+                    </tr>
+                `;
+            });
+        });
+
+        function clearOldEntries() {
+            if (!confirm("⚠️ هل تريد مسح البيانات الأقدم من 7 أيام؟")) return;
+            
+            const salesData = JSON.parse(localStorage.getItem('salesData') || '[]');
+            const filteredData = salesData.filter(entry => {
+                return new Date(entry.date) >= new Date(new Date().setDate(new Date().getDate()-7));
+            });
+            
+            localStorage.setItem('salesData', JSON.stringify(filteredData));
+            location.reload();
+        }
+
+        function clearComparison() {
+            if (!confirm("⚠️ هل تريد مسح جميع البيانات نهائيًا؟")) return;
+            
+            localStorage.removeItem('salesData');
+            location.reload();
+        }
+    </script>
+</body>
+</html>

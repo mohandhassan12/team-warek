@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+
+/* وسائل الاستعلام عن الوسائط لتحديد النطاقات المختلفة من أحجام الشاشة */
+@media only screen and (max-width: 768px) {
+    .login-container, .data-entry-container {
+        width: 95%;
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .login-container, .data-entry-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+.login-container, .data-entry-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 52px auto;
+    padding: 33px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* ظل صندوق أكثر ليونة */
+}
+
+h2 {
+    text-align: center;
+    color: #6a1b9a;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #6a1b9a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a148c;
+}

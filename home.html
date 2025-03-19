@@ -7,314 +7,106 @@
     <link rel="shortcut icon" href="logo5.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-                /* التنسيقات العامة */
-
+        /* التنسيقات العامة */
         :root {
-
             --main-color: #6a1b9a;
-
             --secondary-color: #9c27b0;
-
         }
-
-
 
         * {
-
             box-sizing: border-box;
-
             margin: 0;
-
             padding: 0;
-
         }
-
-
 
         body {
-
             font-family: 'Tahoma', sans-serif;
-
             background: #f8f0ff;
-
             line-height: 1.6;
-
         }
-
-
 
         /* الهيدر */
-
         .header {
-
             background: var(--main-color);
-
             color: white;
-
             padding: 1rem;
-
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-
-        }
-
-
-
-        .navbar {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
-            max-width: 1200px;
-
-            margin: 0 auto;
-
         }
 
-
-
-        .logo {
-
-            width: 120px;
-
-        }
-
-
-
-        .nav-links a {
-
+        .header a {
             color: white;
-
             text-decoration: none;
-
-            margin-left: 2rem;
-
-            transition: 0.3s;
-
-        }
-
-
-
-        /* قسم النماذج */
-
-        .forms-section {
-
-            max-width: 1200px;
-
-            margin: 2rem auto;
-
-            padding: 0 1rem;
-
-        }
-
-
-
-        .search-bar {
-
-            margin: 2rem 0;
-
-            text-align: center;
-
-        }
-
-
-
-        #searchInput {
-
-            width: 60%;
-
-            padding: 12px;
-
-            border: 2px solid var(--main-color);
-
-            border-radius: 25px;
-
-        }
-
-
-
-        .filter-buttons {
-
-            text-align: center;
-
-            margin: 1rem 0;
-
-        }
-
-
-
-        .filter-btn {
-
-            background: var(--secondary-color);
-
-            color: white;
-
-            border: none;
-
-            padding: 8px 20px;
-
-            margin: 0 5px;
-
-            border-radius: 20px;
-
-            cursor: pointer;
-
-        }
-
-
-
-        /* بطاقات النماذج */
-
-        .forms-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-            gap: 1.5rem;
-
-            padding: 1rem;
-
-        }
-
-
-
-        .form-card {
-
-            background: white;
-
-            border-radius: 15px;
-
-            padding: 1.5rem;
-
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-
-            transition: 0.3s;
-
-        }
-
-
-
-        .form-card:hover {
-
-            transform: translateY(-5px);
-
-        }
-
-
-
-        .form-header {
-
-            display: flex;
-
-            align-items: center;
-
-            margin-bottom: 1rem;
-
-        }
-
-
-
-        .form-icon {
-
-            font-size: 2rem;
-
-            color: var(--main-color);
-
-            margin-left: 1rem;
-
-        }
-
-
-
-        .download-btn {
-
-            display: block;
-
-            text-align: center;
-
-            background: var(--main-color);
-
-            color: white;
-
-            padding: 10px;
-
-            border-radius: 8px;
-
-            text-decoration: none;
-
-            margin-top: 1rem;
-
-        }
-
-
-
-        /* فوتر */
-
-        .footer {
-
-            background: var(--main-color);
-
-            color: white;
-
-            text-align: center;
-
-            padding: 2rem;
-
-            margin-top: 3rem;
-
-        }
-
-
-
-        /* تسجيل الدخول */
-
-        .login-container {
-
-            max-width: 400px;
-
-            margin: 5rem auto;
-
-            padding: 2rem;
-
-            background: white;
-
-            border-radius: 15px;
-
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-
-        }
-
-
-
-        /* رسالة البحث */
-
-        .no-results {
-
-            text-align: center;
-
-            margin-top: 2rem;
-
             font-size: 1.2rem;
-
-            color: var(--main-color);
-
         }
 
+        /* الشريط الجانبي */
+        .sidebar {
+            width: 250px;
+            background: var(--main-color);
+            color: white;
+            padding: 1rem;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* توسيط الروابط عموديًا */
+        }
 
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.3s;
+        }
 
-        .no-results i {
+        .sidebar a i {
+            margin-left: 10px;
+        }
 
-            font-size: 2rem;
+        .sidebar a:hover {
+            background: var(--secondary-color);
+            transform: translateX(-5px);
+        }
 
-            margin-bottom: 1rem;
+        /* المحتوى الرئيسي */
+        .content {
+            margin-right: 250px; /* تجنب تداخل المحتوى مع الشريط الجانبي */
+            padding: 2rem;
+        }
 
+        .content h1 {
+            color: var(--main-color);
+        }
+
+        .toggle-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body class="light-mode">
+    <!-- الهيدر -->
+    <div class="header">
+        <h1>مرحبًا، <span id="username"></span>!</h1>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+    </div>
+
+    <!-- الشريط الجانبي -->
     <div class="sidebar">
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="بحث عن الصفحات...">
@@ -325,11 +117,10 @@
         <a href="sales-dashboard.html"><i class="fas fa-chart-bar"></i> داشبورد السيلز</a>
         <a href="branch-dashboard.html" id="adminLink" style="display:none;"><i class="fas fa-building"></i> داشبورد الفرع</a>
         <a href="pdf.html"><i class="fa-solid fa-file-pdf"></i>All Pdf</a>
-        <a href="index.html"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
     </div>
 
+    <!-- المحتوى الرئيسي -->
     <div class="content">
-        <h1>مرحبًا، <span id="username"></span>!</h1>
         <button class="toggle-btn" onclick="toggleMode()">تبديل الوضع</button>
     </div>
 

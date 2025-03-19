@@ -36,58 +36,58 @@
             align-items: center;
         }
 
+        .header .logo {
+            width: 120px;
+        }
+
+        .header .welcome {
+            font-size: 1.2rem;
+        }
+
         .header a {
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
         }
 
-        /* الشريط الجانبي */
-        .sidebar {
-            width: 250px;
-            background: var(--main-color);
-            color: white;
-            padding: 1rem;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            right: 0;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        /* روابط الصفحة */
+        .links-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center; /* توسيط الروابط عموديًا */
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .sidebar a i {
-            margin-left: 10px;
-        }
-
-        .sidebar a:hover {
-            background: var(--secondary-color);
-            transform: translateX(-5px);
-        }
-
-        /* المحتوى الرئيسي */
-        .content {
-            margin-right: 250px; /* تجنب تداخل المحتوى مع الشريط الجانبي */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
             padding: 2rem;
+            margin-top: 2rem;
         }
 
-        .content h1 {
+        .link-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .link-card i {
+            font-size: 2rem;
             color: var(--main-color);
+            margin-bottom: 1rem;
         }
 
+        .link-card a {
+            text-decoration: none;
+            color: var(--main-color);
+            font-size: 1.1rem;
+        }
+
+        /* زر تبديل الوضع */
         .toggle-btn {
             background: var(--secondary-color);
             color: white;
@@ -102,25 +102,37 @@
 <body class="light-mode">
     <!-- الهيدر -->
     <div class="header">
-        <h1>مرحبًا، <span id="username"></span>!</h1>
+        <img src="logo5.png" alt="Logo" class="logo">
+        <div class="welcome">مرحبًا، <span id="username"></span>!</div>
         <a href="index.html"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
     </div>
 
-    <!-- الشريط الجانبي -->
-    <div class="sidebar">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="بحث عن الصفحات...">
-            <i class="fas fa-search search-icon"></i>
+    <!-- روابط الصفحة -->
+    <div class="links-container">
+        <div class="link-card">
+            <i class="fas fa-pencil-alt"></i>
+            <a href="daily-lines.html">تسجيل الخطوط</a>
         </div>
-        <a href="daily-lines.html"><i class="fas fa-pencil-alt"></i> تسجيل الخطوط</a>
-        <a href="cash.html"><i class="fas fa-wallet"></i> تسجيل الكاش</a>
-        <a href="sales-dashboard.html"><i class="fas fa-chart-bar"></i> داشبورد السيلز</a>
-        <a href="branch-dashboard.html" id="adminLink" style="display:none;"><i class="fas fa-building"></i> داشبورد الفرع</a>
-        <a href="pdf.html"><i class="fa-solid fa-file-pdf"></i>All Pdf</a>
+        <div class="link-card">
+            <i class="fas fa-wallet"></i>
+            <a href="cash.html">تسجيل الكاش</a>
+        </div>
+        <div class="link-card">
+            <i class="fas fa-chart-bar"></i>
+            <a href="sales-dashboard.html">داشبورد السيلز</a>
+        </div>
+        <div class="link-card" id="adminLink" style="display:none;">
+            <i class="fas fa-building"></i>
+            <a href="branch-dashboard.html">داشبورد الفرع</a>
+        </div>
+        <div class="link-card">
+            <i class="fa-solid fa-file-pdf"></i>
+            <a href="pdf.html">All Pdf</a>
+        </div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
-    <div class="content">
+    <!-- زر تبديل الوضع -->
+    <div style="text-align: center; margin-top: 2rem;">
         <button class="toggle-btn" onclick="toggleMode()">تبديل الوضع</button>
     </div>
 
@@ -132,7 +144,7 @@
             document.getElementById('username').textContent = currentUser;
             
             if (currentUser === 'Mohand') {
-                document.getElementById('adminLink').style.display = 'flex';
+                document.getElementById('adminLink').style.display = 'block';
             }
         });
 

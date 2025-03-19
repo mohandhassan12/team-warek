@@ -7,116 +7,310 @@
     <link rel="shortcut icon" href="logo5.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+                /* التنسيقات العامة */
+
+        :root {
+
+            --main-color: #6a1b9a;
+
+            --secondary-color: #9c27b0;
+
+        }
+
+
+
+        * {
+
+            box-sizing: border-box;
+
             margin: 0;
+
             padding: 0;
-            direction: rtl;
-            transition: background-color 0.3s, color 0.3s;
+
         }
-    
-        body.light-mode {
-            background-color: #ffffff;
-            color: #333;
+
+
+
+        body {
+
+            font-family: 'Tahoma', sans-serif;
+
+            background: #f8f0ff;
+
+            line-height: 1.6;
+
         }
-    
-        body.dark-mode {
-            background-color: #4b0082;
-            color: #ffffff;
-        }
-    
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 100%;
-            background: #4b0082;
+
+
+
+        /* الهيدر */
+
+        .header {
+
+            background: var(--main-color);
+
             color: white;
-            padding: 20px;
-            transition: background-color 0.3s;
+
+            padding: 1rem;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
         }
-    
-        body.dark-mode .sidebar {
-            background: #2e0041;
-        }
-    
-        .sidebar a {
+
+
+
+        .navbar {
+
             display: flex;
+
+            justify-content: space-between;
+
             align-items: center;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .logo {
+
+            width: 120px;
+
+        }
+
+
+
+        .nav-links a {
+
             color: white;
-            padding: 12px;
+
             text-decoration: none;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            transition: all 0.3s;
+
+            margin-left: 2rem;
+
+            transition: 0.3s;
+
         }
-    
-        .sidebar a i {
-            margin-left: 10px;
-            width: 20px;
+
+
+
+        /* قسم النماذج */
+
+        .forms-section {
+
+            max-width: 1200px;
+
+            margin: 2rem auto;
+
+            padding: 0 1rem;
+
+        }
+
+
+
+        .search-bar {
+
+            margin: 2rem 0;
+
             text-align: center;
+
         }
-    
-        .sidebar a:hover {
-            background: #6a1b9a;
-            transform: translateX(-5px);
-        }
-    
-        .content {
-            margin-right: 220px;
-            padding: 20px;
-        }
-    
-        h1 {
-            text-align: center;
-            color: inherit;
-        }
-    
-        h1 span {
-            color: #6a1b9a;
-            padding: 5px 15px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-    
-        .toggle-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #6a1b9a;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-    
-        .toggle-btn:hover {
-            background-color: #4b0082;
-        }
-    
-        .search-box {
-            margin-bottom: 20px;
-            position: relative;
-        }
-    
+
+
+
         #searchInput {
-            width: 100%;
-            padding: 10px 35px 10px 10px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+
+            width: 60%;
+
+            padding: 12px;
+
+            border: 2px solid var(--main-color);
+
+            border-radius: 25px;
+
         }
-    
-        .search-icon {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #aaa;
+
+
+
+        .filter-buttons {
+
+            text-align: center;
+
+            margin: 1rem 0;
+
+        }
+
+
+
+        .filter-btn {
+
+            background: var(--secondary-color);
+
+            color: white;
+
+            border: none;
+
+            padding: 8px 20px;
+
+            margin: 0 5px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* بطاقات النماذج */
+
+        .forms-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 1.5rem;
+
+            padding: 1rem;
+
+        }
+
+
+
+        .form-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 1.5rem;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
+            transition: 0.3s;
+
+        }
+
+
+
+        .form-card:hover {
+
+            transform: translateY(-5px);
+
+        }
+
+
+
+        .form-header {
+
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .form-icon {
+
+            font-size: 2rem;
+
+            color: var(--main-color);
+
+            margin-left: 1rem;
+
+        }
+
+
+
+        .download-btn {
+
+            display: block;
+
+            text-align: center;
+
+            background: var(--main-color);
+
+            color: white;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            margin-top: 1rem;
+
+        }
+
+
+
+        /* فوتر */
+
+        .footer {
+
+            background: var(--main-color);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 2rem;
+
+            margin-top: 3rem;
+
+        }
+
+
+
+        /* تسجيل الدخول */
+
+        .login-container {
+
+            max-width: 400px;
+
+            margin: 5rem auto;
+
+            padding: 2rem;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+        }
+
+
+
+        /* رسالة البحث */
+
+        .no-results {
+
+            text-align: center;
+
+            margin-top: 2rem;
+
+            font-size: 1.2rem;
+
+            color: var(--main-color);
+
+        }
+
+
+
+        .no-results i {
+
+            font-size: 2rem;
+
+            margin-bottom: 1rem;
+
         }
     </style>
 </head>

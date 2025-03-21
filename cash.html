@@ -97,6 +97,11 @@
             </div>
 
             <div class="form-group">
+                <label>اي اصافات</label>
+                <input type="number" id="CashAdd" required>
+            </div>
+
+            <div class="form-group">
                 <label>مسحوبات أخرى:</label>
                 <input type="number" id="otherWithdrawn" required>
             </div>
@@ -114,7 +119,7 @@
         // حساب الإجمالي التلقائي
         function calculateTotal() {
             const inputs = [
-                'bss', 'wePayAdded', 'wePayWithdrawn',
+                'bss', 'wePayAdded', 'cashadd', 'wePayWithdrawn',
                 'visaWithdrawn', 'refund', 'otherWithdrawn'
             ];
 

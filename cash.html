@@ -97,8 +97,8 @@
             </div>
 
             <div class="form-group">
-                <label>اي اصافات</label>
-                <input type="number" id="CashAdd" required>
+                <label>إضافات أخرى:</label>
+                <input type="number" id="cashAdd" required>
             </div>
 
             <div class="form-group">
@@ -118,22 +118,20 @@
     <script>
         // حساب الإجمالي التلقائي
         function calculateTotal() {
-            const inputs = [
-                'bss', 'wePayAdded', 'cashadd', 'wePayWithdrawn',
-                'visaWithdrawn', 'refund', 'otherWithdrawn'
-            ];
+            const bss = parseFloat(document.getElementById('bss').value) || 0;
+            const wePayAdded = parseFloat(document.getElementById('wePayAdded').value) || 0;
+            const wePayWithdrawn = parseFloat(document.getElementById('wePayWithdrawn').value) || 0;
+            const visaWithdrawn = parseFloat(document.getElementById('visaWithdrawn').value) || 0;
+            const refund = parseFloat(document.getElementById('refund').value) || 0;
+            const cashAdd = parseFloat(document.getElementById('cashAdd').value) || 0;
+            const otherWithdrawn = parseFloat(document.getElementById('otherWithdrawn').value) || 0;
 
-            const values = inputs.map(id => 
-                parseFloat(document.getElementById(id).value) || 0
-            );
-
-            const total = values[0] + values[1] - values[2] - 
-                        values[3] - values[4] - values[5];
-            
+            // حساب الإجمالي
+            const total = bss + wePayAdded + cashAdd - wePayWithdrawn - visaWithdrawn - refund - otherWithdrawn;
             document.getElementById('totalCash').value = total.toFixed(2);
         }
 
-        // تفعيل الحساب التلقائي
+        // تفعيل الحساب التلقائي عند تغيير القيم
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('input', calculateTotal);
         });
@@ -143,13 +141,14 @@
             event.preventDefault();
             
             const cashEntry = {
-                timestamp: new Date().toISOString(), // إضافة هذا الحقل
+                timestamp: new Date().toISOString(),
                 date: new Date().toLocaleString('ar-EG'),
                 bss: document.getElementById('bss').value,
                 wePayAdded: document.getElementById('wePayAdded').value,
                 wePayWithdrawn: document.getElementById('wePayWithdrawn').value,
                 visaWithdrawn: document.getElementById('visaWithdrawn').value,
                 refund: document.getElementById('refund').value,
+                cashAdd: document.getElementById('cashAdd').value,
                 otherWithdrawn: document.getElementById('otherWithdrawn').value,
                 total: document.getElementById('totalCash').value,
                 user: localStorage.getItem('currentUser') || 'مستخدم غير معروف'

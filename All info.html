@@ -3,62 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قيد الانشاء</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>404 - الصفحة غير موجودة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
     <style>
-        /* CSS هنا */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3e5f5; /* لون بين الأبيض والموف */
-            color: #333;
+        /*======================
+            404 page
+        =======================*/
+        .page_404 {
+            padding: 40px 0;
+            background: #fff;
+            font-family: 'Arvo', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            padding: 50px;
+        }
+
+        .page_404 img {
+            width: 100%;
+        }
+
+        .four_zero_four_bg {
+            background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+            height: 400px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .four_zero_four_bg h1 {
+            font-size: 80px;
             margin: 0;
+            color: #333;
         }
 
-        .maintenance-container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            max-width: 90%;
+        .contant_box_404 {
+            margin-top: -50px;
+            text-align: center;
         }
 
-        .icon {
-            font-size: 60px;
-            color: #8e24aa; /* لون موف داكن */
+        .contant_box_404 h3 {
+            font-size: 30px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .contant_box_404 p {
+            font-size: 18px;
+            color: #666;
             margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 28px;
+        .link_404 {
+            color: #fff !important;
+            padding: 10px 20px;
+            background: #39ac31;
             margin: 20px 0;
-            color: #6a1b9a; /* لون موف داكن */
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-        p {
-            font-size: 18px;
-            margin: 10px 0;
-            color: #333;
+        .link_404:hover {
+            background-color: #2d8a27;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 10px;
-            width: 400px; /* تعديل عرض الصورة */
-            height: auto; /* الحفاظ على نسبة الطول/العرض */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="maintenance-container">
-        <i class="fas fa-tools icon"></i>
-        <h1>الموقع تحت الانشاء حاليا</h1>
-        <p>هيبقي متاح قريبا نستني شويه 🙄!</p>
-        <p>يا بهايم</p>
-    </div>
+    <section class="page_404">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-10 col-sm-offset-1 text-center">
+                        <div class="four_zero_four_bg">
+                            <h1 class="text-center">404</h1>
+                        </div>
+                        <div class="contant_box_404">
+                            <h3 class="h2">يبدو أنك فقدت طريقك!</h3>
+                            <p>الصفحة التي تبحث عنها غير متوفرة.</p>
+                            <a href="home.html" class="link_404">العودة إلى الصفحة الرئيسية</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

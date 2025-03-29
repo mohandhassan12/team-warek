@@ -44,6 +44,7 @@
       justify-content: center;
       align-items: center;
       transition: 0.5s;
+      cursor: pointer;
     }
 
     @keyframes rotating {
@@ -96,7 +97,7 @@
       transform: translateY(0px);
     }
     
-    /* العنصر الجديد الذي يعرض كلمة Login في الحالة العادية */
+    /* تصميم نص Login في الحالة العادية */
     .login-text {
       position: absolute;
       z-index: 1000;
@@ -106,6 +107,20 @@
       text-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
       transition: 0.5s;
       opacity: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .login-text i {
+      font-size: 1.5em;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
     
     .box:hover .login-text {
@@ -121,7 +136,7 @@
       align-items: center;
       flex-direction: column;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       color: #333;
       z-index: 1000;
       box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.05);
@@ -136,8 +151,8 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: 20px;
-      width: 70%;
+      gap: 25px;
+      width: 80%;
       transform: translateY(126px);
       transition: 0.5s;
     }
@@ -147,6 +162,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       color: #333;
+      margin-bottom: 10px;
     }
 
     h2 i {
@@ -154,9 +170,22 @@
       text-shadow: 0 0 5px rgba(156, 39, 176, 0.5), 0 0 20px rgba(156, 39, 176, 0.3);
     }
 
+    .input-group {
+      width: 100%;
+      position: relative;
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9c27b0;
+    }
+
     input {
       width: 100%;
-      padding: 10px 20px;
+      padding: 12px 20px 12px 45px;
       outline: none;
       border: none;
       font-size: 1em;
@@ -174,6 +203,11 @@
 
     input::placeholder {
       color: #999;
+      transition: 0.3s;
+    }
+    
+    input:focus::placeholder {
+      opacity: 0;
     }
 
     input[type="submit"] {
@@ -183,19 +217,44 @@
       color: #fff;
       cursor: pointer;
       transition: 0.5s;
+      padding: 12px 20px;
+      text-align: center;
     }
 
     input[type="submit"]:hover {
       background: #7b1fa2;
       box-shadow: 0 0 10px rgba(156, 39, 176, 0.5), 0 0 60px rgba(156, 39, 176, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    /* تأثيرات ظهور الحقول */
+    .input-group {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.5s;
+    }
+    
+    .box:hover .input-group {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .box:hover .input-group:nth-child(2) {
+      transition-delay: 0.1s;
+    }
+    
+    .box:hover .input-group:nth-child(3) {
+      transition-delay: 0.2s;
     }
   </style>
 </head>
 <body>
 <div class="box">
-  <!-- العنصر الجديد الذي يعرض كلمة Login -->
+  <!-- النص الذي يظهر في الحالة العادية -->
   <div class="login-text">
-    <i class="fa-solid fa-right-to-bracket"></i> Login
+    <i class="fa-solid fa-user-lock"></i>
+    <span>تسجيل الدخول</span>
+    <small>إضغط أو مرر الماوس هنا</small>
   </div>
   
   <div class="login">
@@ -206,9 +265,18 @@
           Login
           <i class="fa-solid fa-heart"></i>
         </h2>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <input type="submit" value="Sign in">
+        
+        <div class="input-group">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="username" placeholder="اسم المستخدم" required>
+        </div>
+        
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="password" placeholder="كلمة المرور" required>
+        </div>
+        
+        <input type="submit" value="دخول">
       </form>
     </div>
   </div>

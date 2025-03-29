@@ -95,6 +95,23 @@
     .box:hover .loginBx {
       transform: translateY(0px);
     }
+    
+    /* العنصر الجديد الذي يعرض كلمة Login في الحالة العادية */
+    .login-text {
+      position: absolute;
+      z-index: 1000;
+      font-size: 2em;
+      font-weight: 600;
+      color: #9c27b0;
+      text-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
+      transition: 0.5s;
+      opacity: 1;
+    }
+    
+    .box:hover .login-text {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
 
     .login {
       position: absolute;
@@ -176,6 +193,11 @@
 </head>
 <body>
 <div class="box">
+  <!-- العنصر الجديد الذي يعرض كلمة Login -->
+  <div class="login-text">
+    <i class="fa-solid fa-right-to-bracket"></i> Login
+  </div>
+  
   <div class="login">
     <div class="loginBx">
       <form id="loginForm">

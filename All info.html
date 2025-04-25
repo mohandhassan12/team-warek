@@ -3,103 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - الصفحة غير موجودة</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
+    <title>All info</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /*======================
-            404 page
-        =======================*/
-        .page_404 {
-            padding: 40px 0;
-            background: #fff;
-            font-family: 'Arvo', serif;
+        :root {
+            --primary-color: #7b4397;
+            --secondary-color: #a77bc7;
+            --light-purple: #f0ebf7;
+            --white: #ffffff;
+            --light-gray: #e0e0e0;
+            --dark-gray: #333333;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+        }
+
+        #search-input {
+            width: 70%;
+            padding: 12px 20px;
+            border: 2px solid var(--light-purple);
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(123, 67, 151, 0.2);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .package-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--light-purple);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .package-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            font-size: 2.5rem;
+            padding: 25px 0;
             text-align: center;
         }
 
-        .page_404 img {
-            width: 100%;
+        .package-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
-        .four_zero_four_bg {
-            background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-            height: 400px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            animation: float 3s ease-in-out infinite;
+        .package-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
-        .four_zero_four_bg h1 {
-            font-size: 80px;
-            margin: 0;
-            color: #333;
-        }
-
-        .contant_box_404 {
-            margin-top: -50px;
-            text-align: center;
-        }
-
-        .contant_box_404 h3 {
-            font-size: 30px;
-            margin: 20px 0;
-            color: #333;
-        }
-
-        .contant_box_404 p {
-            font-size: 18px;
-            color: #666;
+        .package-desc {
+            color: var(--dark-gray);
             margin-bottom: 20px;
+            flex-grow: 1;
         }
 
-        .link_404 {
-            color: #fff !important;
-            padding: 10px 20px;
-            background: #39ac31;
-            margin: 20px 0;
+        .package-link {
             display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+            margin-top: auto;
         }
 
-        .link_404:hover {
-            background-color: #2d8a27;
+        .package-link:hover {
+            background-color: var(--secondary-color);
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .packages-grid {
+                grid-template-columns: 1fr;
             }
-            50% {
-                transform: translateY(-20px);
+            
+            #search-input {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <section class="page_404">
+    <header>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-10 col-sm-offset-1 text-center">
-                        <div class="four_zero_four_bg">
-                            <h1 class="text-center">404</h1>
-                        </div>
-                        <div class="contant_box_404">
-                            <h3 class="h2">يبدو أنك فقدت طريقك!</h3>
-                            <p>الصفحة التي تبحث عنها غير متوفرة.</p>
-                            <a href="home.html" class="link_404">العودة إلى الصفحة الرئيسية</a>
-                        </div>
-                    </div>
+            <h1>All info</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث عن الباقة المطلوبة..." aria-label="بحث عن الباقات">
+        </div>
+
+        <div class="packages-grid">
+            <!-- WE Gold -->
+            <div class="package-card" data-name="we gold">
+                <div class="package-icon">💎</div>
+                <div class="package-content">
+                    <h3 class="package-title">WE Gold</h3>
+                    <p class="package-desc">باقات الفاتورة الشهرية المميزة التي تجمع بين خدمات الموبايل والإنترنت المنزلي مع مزايا حصرية.</p>
+                    <a href="We Gold.html" class="package-link">عرض التفاصيل</a>
                 </div>
             </div>
+
+            <!-- WE Mix -->
+            <div class="package-card" data-name="we mix">
+                <div class="package-icon">🔄</div>
+                <div class="package-content">
+                    <h3 class="package-title">WE Mix</h3>
+                    <p class="package-desc">نظام يجمع بين باقات الموبايل والإنترنت المنزلي في باقة واحدة مع مشاركة الموارد.</p>
+                    <a href="we mix.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- Super Kix -->
+            <div class="package-card" data-name="super kix">
+                <div class="package-icon">✨</div>
+                <div class="package-content">
+                    <h3 class="package-title">Super Kix</h3>
+                    <p class="package-desc">باقات مسبقة الدفع مع وحدات متعددة الاستخدامات ومكافآت على التجديد المتتالي.</p>
+                    <a href="super kix.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- Nitro -->
+            <div class="package-card" data-name="nitro">
+                <div class="package-icon">⚡</div>
+                <div class="package-content">
+                    <h3 class="package-title">Nitro</h3>
+                    <p class="package-desc">باقات إنترنت سريع للموبايل مع خصومات على استخدام الألعاب ومواقع الفيديو.</p>
+                    <a href="nitro.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- WE Club -->
+            <div class="package-card" data-name="we club">
+                <div class="package-icon">👥</div>
+                <div class="package-content">
+                    <h3 class="package-title">WE Club</h3>
+                    <p class="package-desc">باقات مخصصة لأعضاء النوادي والجامعات مع مزايا جماعية ودقائق مجانية داخل النادي.</p>
+                    <a href="we club.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- 12 قرش -->
+            <div class="package-card" data-name="12 قرش">
+                <div class="package-icon">💰</div>
+                <div class="package-content">
+                    <h3 class="package-title">نظام 12 قرش</h3>
+                    <p class="package-desc">نظام التعريفة الموحدة بسعر 12 قرش للدقيقة والرسالة والميجابايت لجميع الشبكات.</p>
+                    <a href="pt.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- Egypt Mobile -->
+            <div class="package-card" data-name="egypt mobile">
+                <div class="package-icon">🌍</div>
+                <div class="package-content">
+                    <h3 class="package-title">Egypt Mobile</h3>
+                    <p class="package-desc">باقات مخصصة للسياح الزائرين لمصر تشمل دقائق محلية ودولية وإنترنت.</p>
+                    <a href="alo Egypt.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- تكافل وكرامة -->
+            <div class="package-card" data-name="تكافل وكرامة">
+                <div class="package-icon">🤝</div>
+                <div class="package-content">
+                    <h3 class="package-title">تكافل وكرامة</h3>
+                    <p class="package-desc">باقات مخفضة للمستحقين من برنامج تكافل وكرامة مع مميزات خاصة.</p>
+                    <a href="تكافل و كرامه .html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <!-- Tazbeet -->
+            <div class="package-card" data-name="tazbeet">
+                <div class="package-icon">🧩</div>
+                <div class="package-content">
+                    <h3 class="package-title">نظام كتزول تطبيط</h3>
+                    <p class="package-desc">نظام مرن يسمح باختيار باقات متنوعة للدقائق والإنترنت مع إمكانية ترحيل الوحدات.</p>
+                    <a href="tazbeet.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+            
+            <!-- زوي الاحتياجات الخاصه -->
+            <div class="package-card" data-name="زوي الاحتياجات الخاصه">
+                <div class="package-icon">♿</div>
+                <div class="package-content">
+                    <h3 class="package-title">زوي الاحتياجات الخاصه</h3>
+                    <p class="package-desc">عروض خاصه لي زوي الهمم</p>
+                    <a href="عرض ذوي الاحتياجات الخاصة.html" class="package-link">عرض التفاصيل</a>
+                </div>
+            </div>
+
+            <div class="no-results">
+                <p>لا توجد نتائج مطابقة للبحث. يرجى المحاولة بكلمات أخرى.</p>
+            </div>
         </div>
-    </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 جميع الحقوق محفوظة | Powered by Mohand</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const packageCards = document.querySelectorAll('.package-card');
+            const noResults = document.querySelector('.no-results');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                let hasResults = false;
+
+                packageCards.forEach(card => {
+                    const packageName = card.getAttribute('data-name').toLowerCase();
+                    if (packageName.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        hasResults = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (!hasResults && searchTerm.length > 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

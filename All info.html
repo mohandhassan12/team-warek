@@ -47,6 +47,7 @@
             border-radius: 0 0 var(--border-radius) var(--border-radius);
             margin-bottom: 30px;
             box-shadow: var(--box-shadow);
+            position: relative;
         }
 
         header h1 {
@@ -57,6 +58,18 @@
         header p {
             font-size: 1.1rem;
             opacity: 0.9;
+        }
+
+        .home-link {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .search-container {
@@ -178,14 +191,24 @@
             #search-input {
                 width: 100%;
             }
+
+            .home-link {
+                position: static;
+                margin-bottom: 15px;
+                justify-content: center;
+            }
+
+            header {
+                padding: 20px 0;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
+            <a href="home.html" class="home-link">الصفحة الرئيسية 🏠</a>
             <h1>All info</h1>
-            <a href="home.html">home🏠</i></a
         </div>
     </header>
 

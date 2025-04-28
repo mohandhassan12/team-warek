@@ -182,9 +182,9 @@
         </div>
 
         <div class="filter-buttons">
-            <button class="filter-btn" onclick="filterForms('all')">All</button>
-            <button class="filter-btn" onclick="filterForms('mobile')">Mobile</button>
-            <button class="filter-btn" onclick="filterForms('landline')">Fixed</button>
+            <button class="filter-btn" onclick="filterForms('all')">الكل</button>
+            <button class="filter-btn" onclick="filterForms('mobile')">المحمول</button>
+            <button class="filter-btn" onclick="filterForms('landline')">الأرضي</button>
             <button class="filter-btn"onclick="filterForms('Adsl')">Adsl</button>
         </div>
 
@@ -195,7 +195,7 @@
 
     <!-- الفوتر -->
     <footer class="footer">
-        <p>Designed By mohand</p>
+        <p>powered by mohand</p>
     </footer>
 
     <script>
@@ -220,7 +220,7 @@
                 link: "استماره نقل ملكيه.pdf",
             },
             {
-                title: "فورمه استلام نقديه",
+                title: "اسال استلام نقديه",
                 category:"mobile",
                 size:"200KB",
                 link:"اسال استلام نقدسه.pdf",
@@ -229,7 +229,7 @@
                title:"نموذج تعديل بيانات شخصيه",
                category:"landline",
                size:"150KB",
-               link:"نموذج تعديل بينات شحصيه",
+               link:"نموزج تعديل بينات شخصيه.pdf",
             },
             {
               title:"أﺣﻜﺎم وﺷﺮوط ﺧﺪﻣﺔ ﺧﻄﻮط اﻟﺘﻠﻴﻔﻮن المحمول ذات اﻟﺸﺮاﺋﺢ المدمجة" ,
@@ -295,7 +295,7 @@
                 title:"طلب الغاء MNP",
                 category:"mobile",
                 size:"45KB",
-                link:"طلب الغاء MNP.pdf",
+                link:"طلب الغاء MNP..pdf",
             },
             {
                 title:"طب MNP",
@@ -343,7 +343,7 @@
                 title:"اقرار الراوتر 50ج ",
                 category:"Adsl",
                 size:"35KB",
-                link:"اقرار الراوتر 50ج.pdf",
+                link:"اقرار الراوتر 50ج .pdf",
             },
         ];
 
@@ -362,7 +362,7 @@
                             </div>
                             <p>الحجم: ${form.size}</p>
                             <a href="${form.link}" class="download-btn" download>
-                                <i class="fas fa-download"></i>
+                                <i class="fas fa-download"></i> تحميل النموذج
                             </a>
                         </div>
                     `;
@@ -391,7 +391,7 @@
                 container.innerHTML = `
                     <div class="no-results">
                         <i class="fas fa-search"></i>
-                        <p> دور عدل ي #*"🤬</p>
+                        <p>دور عدل</p>
                     </div>
                 `;
             }
